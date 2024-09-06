@@ -8,7 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 interface TimePeriod {
@@ -25,12 +25,11 @@ const timePeriods: TimePeriod[] = [
 ];
 
 function TimeSelector() {
-  const [selectedPeriod, setSelectedPeriod] = useState<string>();
   const router = useRouter();
   const searchParams = useSearchParams();
+  const selectedPeriod = searchParams.get("period") || "1w";
 
   const onSelectPeriod = (value: string) => {
-    setSelectedPeriod(value);
     router.push(`/?period=${value}`);
   };
 
@@ -39,7 +38,6 @@ function TimeSelector() {
     if (!searchParams.has("period")) {
       router.push("/?period=1w");
     }
-    setSelectedPeriod(searchParams.get("period") || "1w");
   }, []);
 
   return (
