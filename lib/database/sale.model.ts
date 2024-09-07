@@ -9,9 +9,10 @@ export interface ISale extends Document {
     email: string;
     gender: string;
     satisfaction: number;
+    joined: Date;
   };
   couponUsed: boolean;
-  purchaseMethod: "In-store" | "Online" | "Phone";
+  purchaseMethod: "Store" | "Online" | "Phone";
 }
 
 const SaleSchema = new Schema<ISale>({

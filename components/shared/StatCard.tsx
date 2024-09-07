@@ -3,13 +3,14 @@ import { ArrowUpIcon, ArrowDownIcon } from "lucide-react";
 
 interface StatCardProps {
   title: string;
-  value: string;
   icon: React.ReactNode;
   change: number;
+  getValue: () => Promise<number>;
 }
 
-function StatCard({ title, value, icon, change }: StatCardProps) {
+async function StatCard({ title, icon, change, getValue }: StatCardProps) {
   const isPositive = change >= 0;
+  const value = await getValue();
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
