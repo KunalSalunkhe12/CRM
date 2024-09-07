@@ -10,4 +10,4 @@
 
 ## Live
 
-- Link:
+- Link: https://crm-12.netlify.app
