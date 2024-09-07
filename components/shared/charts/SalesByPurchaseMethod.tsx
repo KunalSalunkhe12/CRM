@@ -20,6 +20,7 @@ import {
   getSalesByPurchaseMethod,
   IgetSalesByPurchaseMethod,
 } from "@/lib/actions/charts.action";
+import Loader from "../Loader";
 
 export const description = "A donut chart with text";
 
@@ -64,6 +65,7 @@ export default function SalesByPurchaseMethod({ period }: { period: string }) {
         </CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
+        {chartData.length < 1 && <Loader />}
         <ChartContainer
           config={chartConfig}
           className="mx-auto aspect-square max-h-[250px]"

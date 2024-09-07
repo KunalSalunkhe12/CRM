@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/chart";
 import { useEffect, useState } from "react";
 import { getSalesByItem, IgetSalesByItem } from "@/lib/actions/charts.action";
+import Loader from "../Loader";
 
 export const description = "Sales By Item";
 
@@ -45,6 +46,7 @@ export default function SalesByItem({ period }: { period: string }) {
         <CardDescription>{period}</CardDescription>
       </CardHeader>
       <CardContent>
+        {chartData.length < 1 && <Loader />}
         <ChartContainer config={chartConfig} className="max-h-[250px] w-full">
           <BarChart
             accessibilityLayer
