@@ -20,7 +20,6 @@ export async function getSalesByItem(
 
     const startDate = calculateStartDate(endDate, timeFrame);
     const pipeline = [
-      { $unwind: "$items" },
       {
         $match: {
           saleDate: {
@@ -29,6 +28,7 @@ export async function getSalesByItem(
           },
         },
       },
+      { $unwind: "$items" },
       {
         $group: {
           _id: "$items.name",
@@ -51,5 +51,69 @@ export async function getSalesByItem(
   } catch (error) {
     console.error(error);
     throw new Error("Couldn't fetch Customers data");
+  }
+}
+
+export interface IgetSalesByPurchaseMethod {
+  purchaseMethod: string;
+  sales: number;
+  fill: string;
+}
+
+export async function getSalesByPurchaseMethod(
+  timeFrame: string
+): Promise<IgetSalesByPurchaseMethod[]> {
+  try {
+    await connectToDatabase();
+
+    const startDate = calculateStartDate(endDate, timeFrame); // Calculate the start date based on the timeframe
+    const pipeline = [
+      {
+        $match: {
+          saleDate: {
+            $gte: startDate,
+            $lte: endDate,
+          },
+        },
+      },
+      {
+        $group: {
+          _id: "$purchaseMethod", // Group by purchaseMethod
+          sales: { $sum: 1 }, // Count the number of sales for each method
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          purchaseMethod: "$_id",
+          sales: 1,
+          fill: {
+            $switch: {
+              branches: [
+                {
+                  case: { $eq: ["$_id", "Online"] },
+                  then: "var(--color-online)",
+                },
+                {
+                  case: { $eq: ["$_id", "Store"] },
+                  then: "var(--color-store)",
+                },
+                {
+                  case: { $eq: ["$_id", "Phone"] },
+                  then: "var(--color-phone)",
+                },
+              ],
+              default: "var(--color-other)",
+            },
+          },
+        },
+      },
+    ];
+
+    const result = await Sale.aggregate(pipeline);
+    return result;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Couldn't fetch sales by purchase method data");
   }
 }
