@@ -1,8 +1,13 @@
-## CRM Dashboard
+# CRM Dashboard
 
-# Tech Stack
+## Tech Stack
 
 - Next.js
 - Shandcn UI
 - Tailwind CSS
 - Mongoose
+- Typescript
+
+## Live
+
+- Link:
