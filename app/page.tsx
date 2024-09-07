@@ -39,25 +39,21 @@ export default function Home({
           title="New Customers"
           getValue={() => getCustomersWithinTimeFrame(period)}
           icon={<UsersIcon className="h-6 w-6" />}
-          change={12}
         />
         <StatCard
           title="Revenue"
           getValue={() => getRevenueWithinTimeFrame(period)}
           icon={<DollarSignIcon className="h-6 w-6" />}
-          change={-5}
         />
         <StatCard
           title="Orders"
           getValue={() => getSalesWithinTimeFrame(period)}
           icon={<ShoppingCartIcon className="h-6 w-6" />}
-          change={8}
         />
         <StatCard
           title="Average Satisfaction"
           getValue={() => getSatisfactionWithinTimeFrame(period)}
           icon={<Smile className="h-6 w-6" />}
-          change={-3}
         />
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
