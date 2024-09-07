@@ -10,13 +10,15 @@ export const connectToDatabase = async () => {
   }
 
   if (isConnected) {
-    console.log("connected");
+    return;
   }
 
   // we have a url and we are not connected
   try {
     await mongoose.connect(process.env.MONGODB_URL, {
       dbName: "sample_sale",
+      socketTimeoutMS: 30000,
+      connectTimeoutMS: 30000,
     });
 
     isConnected = true;

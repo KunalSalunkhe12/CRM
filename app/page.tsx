@@ -7,6 +7,7 @@ import {
 
 import TimeSelector from "@/components/shared/TimeSelector";
 import StatCard from "@/components/shared/StatCard";
+import SalesByItem from "@/components/shared/charts/SalesByItem";
 import ThemeToggle from "@/components/shared/ThemeToggle";
 import {
   getCustomersWithinTimeFrame,
@@ -20,7 +21,7 @@ export default function Home({
 }: {
   searchParams: { period: string };
 }) {
-  const { period } = searchParams;
+  const period = searchParams.period ?? "1w";
   return (
     <div
       className={`min-h-screen bg-white dark:bg-background text-black dark:text-foreground p-4 sm:p-6 lg:p-8`}
@@ -57,6 +58,9 @@ export default function Home({
           icon={<Smile className="h-6 w-6" />}
           change={-3}
         />
+      </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <SalesByItem period={period} />
       </div>
     </div>
   );
