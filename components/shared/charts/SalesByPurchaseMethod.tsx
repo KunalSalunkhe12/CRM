@@ -16,10 +16,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import {
-  getSalesByPurchaseMethod,
-  IgetSalesByPurchaseMethod,
-} from "@/lib/actions/charts.action";
+import { IgetSalesByPurchaseMethod } from "@/lib/database/charts";
 import Loader from "../Loader";
 
 export const description = "A donut chart with text";
@@ -50,8 +47,10 @@ export default function SalesByPurchaseMethod({ period }: { period: string }) {
 
   useEffect(() => {
     const getChartData = async () => {
-      const result = await getSalesByPurchaseMethod(period);
-      setChartData(result);
+      const result = await fetch(`/api/get-sales-by-purchase?period=${period}`);
+      const data = await result.json();
+      console.log(data);
+      setChartData(data);
     };
     getChartData();
   }, [period]);

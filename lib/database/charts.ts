@@ -1,8 +1,6 @@
-"use server";
-
-import { connectToDatabase } from "../database/mongoose";
+import { connectToDatabase } from "./mongoose";
 import { calculateStartDate } from "../utils";
-import Sale from "../database/sale.model";
+import Sale from "./model/sale.model";
 
 // Set the end date to 1st January 2018 for this example
 const endDate = new Date("2018-01-01");

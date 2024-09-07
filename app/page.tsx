@@ -14,7 +14,7 @@ import {
   getRevenueWithinTimeFrame,
   getSalesWithinTimeFrame,
   getSatisfactionWithinTimeFrame,
-} from "@/lib/actions/sales.action";
+} from "@/lib/database/sales";
 import SalesByPurchaseMethod from "@/components/shared/charts/SalesByPurchaseMethod";
 
 export default function Home({

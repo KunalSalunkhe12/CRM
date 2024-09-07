@@ -1,7 +1,5 @@
-"use server";
-
-import { connectToDatabase } from "../database/mongoose";
-import Sale from "../database/sale.model";
+import { connectToDatabase } from "./mongoose";
+import Sale from "./model/sale.model";
 import { calculateStartDate } from "../utils";
 
 export interface IActionReturn {

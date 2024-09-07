@@ -17,7 +17,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { useEffect, useState } from "react";
-import { getSalesByItem, IgetSalesByItem } from "@/lib/actions/charts.action";
+import { IgetSalesByItem } from "@/lib/database/charts";
 import Loader from "../Loader";
 
 export const description = "Sales By Item";
@@ -34,8 +34,9 @@ export default function SalesByItem({ period }: { period: string }) {
 
   useEffect(() => {
     const getChartData = async () => {
-      const result = await getSalesByItem(period);
-      setChartData(result);
+      const result = await fetch(`/api/get-sales-by-item?period=${period}`);
+      const data = await result.json();
+      setChartData(data);
     };
     getChartData();
   }, [period]);
